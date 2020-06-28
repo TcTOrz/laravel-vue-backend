@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::group(['prefix'=> 'captcha', 'middleware'=> 'captcha'], function() {
+    Route::get('/','Auth\MyLoginController@getCaptcha')->name('index.get.captcha');
+});
