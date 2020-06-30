@@ -7,7 +7,6 @@ abstract class BaseRepository {
      * TODO
      */
     public function find($id, $columns = array('*')) {
-
     }
 
     /**
