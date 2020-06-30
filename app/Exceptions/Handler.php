@@ -5,8 +5,11 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
+// use App\Traits\Respond;
+
 class Handler extends ExceptionHandler
 {
+    // use Respond;
     /**
      * A list of the exception types that are not reported.
      *
@@ -51,6 +54,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException){
+            if ($exception->getStatusCode() == 404) {
+                // dd(response());
+                return response()->view('error.404');
+                // return $this->response();//response()->view('welcome');
+            }
+        }
+
         if ($exception instanceof CodeException) {
             $code = $exception->getCode();
             $content = config('message.'.$code);

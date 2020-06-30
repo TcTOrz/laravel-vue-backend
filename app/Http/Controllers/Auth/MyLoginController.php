@@ -56,16 +56,19 @@ class MyLoginController extends Controller
         $captcha = strtolower($request->get('captcha'));
         $this->log('controller.request to'.__METHOD__, ['cache_captcha'=> $cacheCaptcha, 'captcha'=> $captcha]);
 
-        /* if( $cacheCaptcha != $captcha ) {
+        if( $cacheCaptcha != $captcha ) {
             $code = config('validation.captcha')['captcha.error'];
             $this->setCode($code);
             // TODO
             return $this->response();
-        } */
+        }
 
         $email = $request->get('email');
         $user = $this->userService->checkUserByEmail($email);
-        // dd($user);
+        if (empty($user)) {
+            $this->setCode(config('validation.login')['login.error']);
+            return $this->response();
+        }
 
         // if (Hash::check('lijian', '$2y$10$WSS7Y1WEzocf/zLsvVvQruzFFlHZFZ4a9xGqs257eK2cfUc02r9Kys')) {
         //     // dd('saas');
@@ -74,7 +77,7 @@ class MyLoginController extends Controller
         $requestPwd = $request->get('password');
 
         // dd(password_verify($requestPwd,$user->password));
-
+        // dd($requestPwd, $user->password);
         $this->userService->checkPwd($requestPwd, $user->password);
 
 
@@ -84,7 +87,8 @@ class MyLoginController extends Controller
         // TODO: 用户名/邮箱/密码格式判断
 
         $now = time();
-        $auth = [/* $user->id */12321, $now];
+        $auth = [$user->id , $now];
+        // TODO
         $hid = 32123;
         return $this->makeToken($auth,$hid);
         // dd( $cacheCaptcha.'11111'.$captcha );
