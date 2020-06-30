@@ -6,6 +6,8 @@
  */
 namespace App\Services\Auth;
 
+use Illuminate\Support\Facades\Cache;
+
 use App\Services\BaseService;
 
 class CaptchaService extends BaseService {
@@ -81,7 +83,7 @@ class CaptchaService extends BaseService {
         $oldCaptcha =  \Cache::pull($captcha);
         $code = strtolower($this->code);
         $this->log('service.request to '.__METHOD__,['captcha_code' => $code]);
-        \Cache::put($captcha,$code,2);
+        Cache::put($captcha, $code, 60);
         $this->outPut();
 
         return $this->code;

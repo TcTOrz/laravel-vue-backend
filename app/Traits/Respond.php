@@ -51,14 +51,16 @@ trait Respond
         $this->message = $message;
     }
 
+    // TODO
     public function response() {
-        // $status = $this->getStatus();
-        // $data = $this->getData() ? $this->getData() : new \stdClass();
+        $status = $this->getStatus();
+        $data = $this->getData() ? $this->getData() : new \stdClass();
         $response = new \stdClass();
         $response->code = $this->getCode();
         $response->message = $this->getMessage();
-        $response->data = new \stdClass();
+        $response->data = $data;
 
+        // dd($response->code);
         if ($response->code != 200 && $response->code != 0) throw new CodeException($response->code);
         return \Response::json($response, $status);
     }

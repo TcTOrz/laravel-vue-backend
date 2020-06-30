@@ -14,6 +14,7 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
         //
+        CodeException::class,
     ];
 
     /**
@@ -50,6 +51,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof CodeException) {
+            $code = $exception->getCode();
+            $content = config('message.'.$code);
+            return \Response::json(['message' => $content,'code' => $code,'data' => (object)null],200);
+        }
+
         return parent::render($request, $exception);
     }
 }

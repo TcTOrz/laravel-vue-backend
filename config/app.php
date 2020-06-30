@@ -165,6 +165,8 @@ return [
         /*
          * Package Service Providers...
          */
+        //hashids-https://blog.csdn.net/gaokcl/article/details/82379882
+        Vinkla\Hashids\HashidsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -174,6 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
 
     ],
 
@@ -227,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
     ],
 
 ];
