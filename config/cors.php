@@ -15,11 +15,12 @@ return [
     |
     */
 
-    'paths' => ['api/*'],
+    // 'paths' => ['api/*'],
+    'paths' => ['api/*', 'login'],
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => ['*'],  // 'POST,GET...'
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['*'], // http://10.10.10.61:8000, https://10.10.10.61:8000
 
     'allowed_origins_patterns' => [],
 
@@ -27,8 +28,8 @@ return [
 
     'exposed_headers' => [],
 
-    'max_age' => 0,
+    'max_age' => 0, // 预检请求间隔时间
 
-    'supports_credentials' => false,
+    'supports_credentials' => false, // 是否将请求暴露给页面，注意要和前端axios withCredentials值一致
 
 ];

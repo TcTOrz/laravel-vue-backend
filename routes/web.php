@@ -21,9 +21,13 @@ Route::get('/', function () {
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
-
+// Route::middleware('cors')->group(function (){
 Route::post('login', 'Auth\MyLoginController@login');
+// });
 
+Route::get('login', function(){
+    dd('login/get');
+});
 
 Route::group(['prefix'=> 'captcha', 'middleware'=> 'captcha'], function() {
     Route::get('/','Auth\MyLoginController@getCaptcha')->name('index.get.captcha');

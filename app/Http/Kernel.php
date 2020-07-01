@@ -21,6 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        
         // \App\Htttp\Middleware\AccessControlAllowOrigin::class,
     ];
 
@@ -65,5 +66,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'captcha' => \App\Http\Middleware\CaptchaMiddleware::class,
+
+        // 'cors' => \Fruitcake\Cors\HandleCors::class,
     ];
 }
