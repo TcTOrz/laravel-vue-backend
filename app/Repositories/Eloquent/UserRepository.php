@@ -20,5 +20,15 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
     {
         return User::where('email', $email)->first(); //->whereStatus('activated')
     }
+
+    /**
+     * 根据userId 获取user
+     * @param $userId
+     * @return mixed
+     */
+    public function first($userId)
+    {
+        return User::where('id', $userId)->first();
+    }
 }
 

@@ -9,4 +9,11 @@ interface UserRepositoryInterface extends BaseRepositoryInterface {
      * @return mixed
      */
     public function checkUserByEmail($email);
+
+    /**
+     * 根据userId 获取user
+     * @param $userId
+     * @return mixed
+     */
+    public function first($userId);
 }

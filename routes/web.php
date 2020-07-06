@@ -25,14 +25,10 @@ Route::get('/', function () {
 Route::post('login', 'Auth\MyLoginController@login');
 // });
 
-Route::get('login', function(){
-    dd('login/get');
-});
-
 Route::group(['prefix'=> 'captcha', 'middleware'=> 'captcha'], function() {
     Route::get('/','Auth\MyLoginController@getCaptcha')->name('index.get.captcha');
 });
 
-Route::get('test', function(){
-    dd('123');
+Route::group(['middleware' => 'tctorz'],function(){
+    Route::get('api/val', 'Index\TestController@getVal');
 });

@@ -28,4 +28,12 @@ class UserService extends BaseService {
             return $this->response();
         }
     }
+
+    /**
+     * @param $userId
+     * @return mixed
+     */
+    public function findUserByToken($userId) {
+        return $this->userRepository->first($userId);
+    }
 }
