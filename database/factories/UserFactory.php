@@ -1,8 +1,17 @@
 <?php
+/*
+ * @Author: Li Jian
+ * @Date: 2020-07-07 13:56:43
+ * @LastEditTime: 2020-07-07 14:05:33
+ * @LastEditors: Li Jian
+ * @Description:
+ * @FilePath: /water-environment-end/database/factories/UserFactory.php
+ * @Motto: MMMMMMMM
+ */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
+use App\Models\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 

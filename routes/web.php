@@ -32,3 +32,5 @@ Route::group(['prefix'=> 'captcha', 'middleware'=> 'captcha'], function() {
 Route::group(['middleware' => 'tctorz'],function(){
     Route::get('api/val', 'Index\TestController@getVal');
 });
+
+Route::get('api/val1', 'Index\TestController@getVal1');

@@ -1,4 +1,13 @@
 <?php
+/*
+ * @Author: Li Jian
+ * @Date: 2020-07-07 15:17:30
+ * @LastEditTime: 2020-07-07 16:19:10
+ * @LastEditors: Li Jian
+ * @Description:
+ * @FilePath: /water-environment-end/app/Models/User.php
+ * @Motto: MMMMMMMM
+ */
 
 namespace App\Models;
 
@@ -39,4 +48,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function phone() {
+        return $this->hasOne('App\Models\Phone', 'another_id', 'id');
+    }
+
+    public function cs()
+    {
+        return $this->hasMany('App\Models\Phone', 'another_id', 'id');
+        // foreach ($c as $s) {
+        //     var_dump($s);
+        // }
+        // return $this->hasMany('App\Models\Phone', 'another_id', 'id');
+    }
 }

@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * @Author: Li Jian
+ * @Date: 2020-07-07 11:29:36
+ * @LastEditTime: 2020-07-07 11:37:23
+ * @LastEditors: Li Jian
+ * @Description: login
+ * @FilePath: /water-environment-end/app/Http/Controllers/Auth/MyLoginController.php
+ * @Motto: MMMMMMMM
+ */
+
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
