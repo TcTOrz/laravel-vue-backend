@@ -1,4 +1,13 @@
 <?php
+/*
+ * @Author: Li Jian
+ * @Date: 2020-07-09 11:16:32
+ * @LastEditTime: 2020-07-09 11:16:54
+ * @LastEditors: Li Jian
+ * @Description:
+ * @FilePath: /water-environment-end/app/Repositories/Eloquent/UserRepository.php
+ * @Motto: MMMMMMMM
+ */
 
 namespace App\Repositories\Eloquent;
 
@@ -29,6 +38,15 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
     public function first($userId)
     {
         return User::where('id', $userId)->first();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getUserById($id)
+    {
+        return User::where('id', $id)->first();
     }
 }
 

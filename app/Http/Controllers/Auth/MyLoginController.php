@@ -3,7 +3,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-07 11:29:36
- * @LastEditTime: 2020-07-07 11:37:23
+ * @LastEditTime: 2020-07-09 11:18:33
  * @LastEditors: Li Jian
  * @Description: login
  * @FilePath: /water-environment-end/app/Http/Controllers/Auth/MyLoginController.php
@@ -103,5 +103,35 @@ class MyLoginController extends Controller
         return $this->makeToken($auth,$hid);
         // dd( $cacheCaptcha.'11111'.$captcha );
         // return $uuid.'12345';
+    }
+
+    /**
+     * 邮箱校验
+     * @param Request $request
+     * @return:
+     */
+    public function verify(Request $request) {
+        $token = $request->get('token');
+        $message = Hashids::connection('code')->decode($token);
+
+        if( empty($message) ) return $this->returnError();
+
+        if( $message[2] != 3 ) return $this->returnError();
+
+        // 超时校验
+        $now = time();
+        $validTime = config('tctorz.verify.valid_time');
+        if( $now - $message[1] > $validTime ) return $this->returnError();
+
+        // 获取不到id，校验失败
+        $user = $this->userService->getUserById($message[0]);
+        if( empty($user) ) return $this->returnError();
+
+        dd($user->email.'通过验证');
+    }
+
+    public function returnError() {
+        $this->setCode(config('validation.login')['verify.failed']);
+        return $this->response();
     }
 }

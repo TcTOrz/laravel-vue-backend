@@ -23,6 +23,8 @@ Route::get('/', function () {
 // Route::get('/home', 'HomeController@index')->name('home');
 // Route::middleware('cors')->group(function (){
 Route::post('login', 'Auth\MyLoginController@login');
+
+Route::get('register', 'Auth\MyRegisterController@register');
 // });
 
 Route::group(['prefix'=> 'captcha', 'middleware'=> 'captcha'], function() {
@@ -33,4 +35,9 @@ Route::group(['middleware' => 'tctorz'],function(){
     Route::get('api/val', 'Index\TestController@getVal');
 });
 
+// 邮箱token验证
+Route::get('/verify', 'Auth\MyLoginController@verify');
+
 Route::get('api/val1', 'Index\TestController@getVal1');
+
+Route::get('api/val2', 'Index\TestController@getVal2');

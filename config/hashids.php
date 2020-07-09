@@ -1,4 +1,13 @@
 <?php
+/*
+ * @Author: Li Jian
+ * @Date: 2020-07-09 10:14:41
+ * @LastEditTime: 2020-07-09 10:14:42
+ * @LastEditors: Li Jian
+ * @Description:
+ * @FilePath: /water-environment-end/config/hashids.php
+ * @Motto: MMMMMMMM
+ */
 
 /**
  * Copyright (c) Vincent Klaiber.
@@ -39,6 +48,11 @@ return [
 
         'main' => [
             'salt' => env('HASH_MAIN', 'tctorzMain'),
+            'length' => '50',
+        ],
+
+        'code' => [
+            'salt' => env('HASH_MAIN', 'tctorzCode'),
             'length' => '50',
         ],
 
