@@ -1,4 +1,13 @@
 <?php
+/*
+ * @Author: Li Jian
+ * @Date: 2020-07-10 10:05:54
+ * @LastEditTime: 2020-07-10 10:05:55
+ * @LastEditors: Li Jian
+ * @Description:
+ * @FilePath: /water-environment-end/routes/web.php
+ * @Motto: MMMMMMMM
+ */
 
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +33,7 @@ Route::get('/', function () {
 // Route::middleware('cors')->group(function (){
 Route::post('login', 'Auth\MyLoginController@login');
 
-Route::get('register', 'Auth\MyRegisterController@register');
+Route::post('register', 'Auth\MyRegisterController@register');
 // });
 
 Route::group(['prefix'=> 'captcha', 'middleware'=> 'captcha'], function() {

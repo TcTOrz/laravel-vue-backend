@@ -3,7 +3,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-07 11:29:36
- * @LastEditTime: 2020-07-09 11:18:33
+ * @LastEditTime: 2020-07-10 11:29:13
  * @LastEditors: Li Jian
  * @Description: login
  * @FilePath: /water-environment-end/app/Http/Controllers/Auth/MyLoginController.php
@@ -99,7 +99,7 @@ class MyLoginController extends Controller
         $now = time();
         $auth = [$user->id , $now];
         // TODO
-        $hid = 32123;
+        $hid = $user->hid;
         return $this->makeToken($auth,$hid);
         // dd( $cacheCaptcha.'11111'.$captcha );
         // return $uuid.'12345';

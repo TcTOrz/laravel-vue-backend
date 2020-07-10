@@ -1,4 +1,13 @@
 <?php
+/*
+ * @Author: Li Jian
+ * @Date: 2020-07-10 11:20:05
+ * @LastEditTime: 2020-07-10 11:20:12
+ * @LastEditors: Li Jian
+ * @Description:
+ * @FilePath: /water-environment-end/app/Exceptions/Handler.php
+ * @Motto: MMMMMMMM
+ */
 
 namespace App\Exceptions;
 
@@ -18,6 +27,7 @@ class Handler extends ExceptionHandler
     protected $dontReport = [
         //
         CodeException::class,
+        TryException::class,
     ];
 
     /**
@@ -66,6 +76,12 @@ class Handler extends ExceptionHandler
             $code = $exception->getCode();
             $content = config('message.'.$code);
             return \Response::json(['message' => $content,'code' => $code,'data' => (object)null],200);
+        }
+
+        if ($exception instanceof TryException) {
+            $codeMessage = $exception->getMessage();
+            $content = config('message.400000002');
+            return \Response::json(['message' => $content,'code' => 400000002,'code_message' => $codeMessage,'data' => (object)null],200);
         }
 
         return parent::render($request, $exception);

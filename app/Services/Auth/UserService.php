@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-09 10:11:35
- * @LastEditTime: 2020-07-09 11:15:02
+ * @LastEditTime: 2020-07-10 11:23:08
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/app/Services/Auth/UserService.php
@@ -16,6 +16,10 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 
 use App\Jobs\SendEmail;
 use Vinkla\Hashids\Facades\Hashids;
+
+use App\Exceptions\TryException;
+
+// use App\Models\User;
 
 class UserService extends BaseService {
 
@@ -68,5 +72,36 @@ class UserService extends BaseService {
             $name,
             config('app.url').'/verify?token='.$param))->onQueue('send-email'));
         return true;
+    }
+
+    /**
+     * 创建注册好的用户
+     * @param $create
+     * @return:
+     */
+    public function loginCreate($create) {
+        $this->log('service.request to'.__METHOD__, ['create'=> $create]);
+        try {
+            \DB::beginTransaction();
+            $this->userRepository->create($create);
+            // $user = User::where('email', $create['email']);
+            $userId = \DB::table('users')->where('email', $create['email'])->first()->id;
+            $hid = Hashids::connection('user')->encode($userId);
+            \DB::table('users')->where('id', $userId)->update(['hid'=> $hid]);
+
+            $this->verifyEmail($create['email'], $create['name'], $userId);
+            \DB::commit();
+        } catch (\Exception $e) {
+        //     //throw $th;
+           $this->log("service.error to listener ".__METHOD__, ['message'=>$e->getMessage(), 'line'=>$e->getLine(), 'file'=>$e->getFile()]);
+            \DB::rollBack();
+            throw new TryException(json_encode($e->getMessage()), (int)$e->getCode());
+        }
+
+        $token = Hashids::connection('main')->encode([$userId, time()]);
+        $data = new \stdClass();
+        $data->token = $token;
+        $data->hid = $hid;
+        return $data;
     }
 }

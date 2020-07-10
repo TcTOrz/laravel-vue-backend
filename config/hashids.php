@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-09 10:14:41
- * @LastEditTime: 2020-07-09 10:14:42
+ * @LastEditTime: 2020-07-10 10:19:54
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/config/hashids.php
@@ -54,6 +54,11 @@ return [
         'code' => [
             'salt' => env('HASH_MAIN', 'tctorzCode'),
             'length' => '50',
+        ],
+
+        'user' => [
+            'salt' => env('HASH_USER', 'tctorzUser'),
+            'length' => '30',
         ],
 
         'alternative' => [
