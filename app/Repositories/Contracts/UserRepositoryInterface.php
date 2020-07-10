@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-09 11:15:49
- * @LastEditTime: 2020-07-10 09:50:23
+ * @LastEditTime: 2020-07-10 14:13:09
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/app/Repositories/Contracts/UserRepositoryInterface.php
@@ -39,4 +39,11 @@ interface UserRepositoryInterface extends BaseRepositoryInterface {
      * @return mixed
      */
     public function create($create);
+
+    /**
+     * @param array $data
+     * @param $id
+     * @return mixed
+     */
+    public function update($data, $id);
 }

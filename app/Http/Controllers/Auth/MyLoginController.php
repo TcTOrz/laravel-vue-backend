@@ -3,7 +3,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-07 11:29:36
- * @LastEditTime: 2020-07-10 11:29:13
+ * @LastEditTime: 2020-07-10 14:28:05
  * @LastEditors: Li Jian
  * @Description: login
  * @FilePath: /water-environment-end/app/Http/Controllers/Auth/MyLoginController.php
@@ -127,7 +127,11 @@ class MyLoginController extends Controller
         $user = $this->userService->getUserById($message[0]);
         if( empty($user) ) return $this->returnError();
 
-        dd($user->email.'通过验证');
+        // dd($user->email.'通过验证');
+        $result = $this->userService->updateVerify($message[0]);
+
+        return redirect('/');
+        // $this->response();
     }
 
     public function returnError() {

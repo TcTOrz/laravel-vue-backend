@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-07 14:23:26
- * @LastEditTime: 2020-07-10 11:10:36
+ * @LastEditTime: 2020-07-10 14:10:24
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/app/Http/Controllers/Index/TestController.php
@@ -32,9 +32,10 @@ class TestController extends Controller
     }
 
     public function getVal1() {
+        return date("Y-m-d H:i:s");
         // dd('1234');
         // var_dump( \DB::table('users')->where('email', 'lijian@qq.com')->first()->id);
-        \DB::table('users')->where('id', 1)->update(['hid'=> '12345']);
+        // \DB::table('users')->where('id', 1)->update(['hid'=> '12345']);
         // phpinfo();
         // return \App\Models\User::find(1)->phone;
         return \App\Models\User::find(1)->cs()->where('id', 2)->first();

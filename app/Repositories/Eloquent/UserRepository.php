@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-09 11:16:32
- * @LastEditTime: 2020-07-10 09:54:34
+ * @LastEditTime: 2020-07-10 14:18:33
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/app/Repositories/Eloquent/UserRepository.php
@@ -56,6 +56,15 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
      */
     public function create($create) {
         return User::insert($create);
+    }
+
+    /**
+     * @param array $data
+     * @param $id
+     * @return mixed
+     */
+    public function update($data, $id) {
+        return User::where('id', $id)->update($data);
     }
 }
 

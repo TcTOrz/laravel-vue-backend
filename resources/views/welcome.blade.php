@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    邮箱验证成功
                 </div>
 
                 <div class="links">
