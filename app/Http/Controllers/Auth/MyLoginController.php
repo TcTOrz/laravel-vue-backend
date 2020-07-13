@@ -3,7 +3,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-07 11:29:36
- * @LastEditTime: 2020-07-10 14:28:05
+ * @LastEditTime: 2020-07-13 09:54:02
  * @LastEditors: Li Jian
  * @Description: login
  * @FilePath: /water-environment-end/app/Http/Controllers/Auth/MyLoginController.php
@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\Auth\ConsoleLoginRequest;
 use Illuminate\Http\Request;
 use App\Services\Auth\CaptchaService;
 use App\Services\Auth\UserService;
@@ -52,7 +53,7 @@ class MyLoginController extends Controller
         // dd($token, $dtoken);
     }
 
-    public function login(Request $request) {
+    public function login(/* Request $request */ ConsoleLoginRequest $request ) {
         $uuid = $request->header('x-auth-uuid');
         $this->log('controller.request to'.__METHOD__, ['x-auth-uuid', $uuid]);
         if(empty($uuid)) {

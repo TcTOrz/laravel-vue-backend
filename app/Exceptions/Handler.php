@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-10 11:20:05
- * @LastEditTime: 2020-07-10 11:20:12
+ * @LastEditTime: 2020-07-13 09:47:23
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/app/Exceptions/Handler.php
@@ -28,6 +28,7 @@ class Handler extends ExceptionHandler
         //
         CodeException::class,
         TryException::class,
+        ValidatorException::class,
     ];
 
     /**
@@ -70,6 +71,13 @@ class Handler extends ExceptionHandler
                 return response()->view('error.404');
                 // return $this->response();//response()->view('welcome');
             }
+        }
+
+        if ($exception instanceof ValidatorException) {
+            $code = $exception->getCode();
+            if ($code == 0) $code = 400000000;
+            $content = config('message.'.$code);
+            return \Response::json(['message' => $content,'code' => $code,'data' => (object)null],200);
         }
 
         if ($exception instanceof CodeException) {

@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-09 10:11:35
- * @LastEditTime: 2020-07-10 14:14:08
+ * @LastEditTime: 2020-07-13 10:14:29
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/app/Services/Auth/UserService.php
@@ -111,6 +111,6 @@ class UserService extends BaseService {
      * @return mixed
      */
     public function updateVerify($userId) {
-        return $this->userRepository->update(['email_verified_at' => date("Y-m-d H:i:s")], $userId);
+        return $this->userRepository->update(['email_verified_at' => date("Y-m-d H:i:s"), 'status' => 'activated'], $userId);
     }
 }

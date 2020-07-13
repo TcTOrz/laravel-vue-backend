@@ -1,4 +1,13 @@
 <?php
+/*
+ * @Author: Li Jian
+ * @Date: 2020-07-13 08:46:43
+ * @LastEditTime: 2020-07-13 08:52:34
+ * @LastEditors: Li Jian
+ * @Description:
+ * @FilePath: /water-environment-end/app/Traits/Respond.php
+ * @Motto: MMMMMMMM
+ */
 
 namespace App\Traits;
 
@@ -60,6 +69,7 @@ trait Respond
         $response->message = $this->getMessage();
         $response->data = $data;
 
+        // var_dump($response);
         // dd($response->code);
         if ($response->code != 200 && $response->code != 0) throw new CodeException($response->code);
         return \Response::json($response, $status);
