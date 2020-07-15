@@ -3,7 +3,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-07 11:29:36
- * @LastEditTime: 2020-07-13 09:54:02
+ * @LastEditTime: 2020-07-16 05:53:52
  * @LastEditors: Li Jian
  * @Description: login
  * @FilePath: /water-environment-end/app/Http/Controllers/Auth/MyLoginController.php
@@ -19,6 +19,7 @@ use App\Services\Auth\UserService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Vinkla\Hashids\Facades\Hashids;
+use Laravel\Socialite\Facades\Socialite;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -138,5 +139,46 @@ class MyLoginController extends Controller
     public function returnError() {
         $this->setCode(config('validation.login')['verify.failed']);
         return $this->response();
+    }
+
+    /**
+     * 调用授权github界面
+     * @param Request $request
+     * @param $service
+     * @return mixed
+     */
+    public function redirectToProvider(Request $request, $service) {
+        if( !in_array($service, config('tctorz.token.login_way')) ) {
+            $this->setCode(config('validation.default')['some.error']);
+            return $this->response();
+        }
+        return Socialite::driver($service)->redirect();
+    }
+
+    /**
+     * 授权回调界面
+     * @param Request $request
+     * @param $service
+     * @return mixed
+     */
+    public function handleProviderCallback(Request $request, $service) {
+        $user = Socialite::driver($service)->stateless()->user();
+
+        switch ( $service ) {
+            case 'github':
+                return $this->loginByGithub($user);
+                break;
+            default:
+                return $this->loginByEmail();
+                break;
+        }
+    }
+
+    public function loginByGithub($user) {
+
+    }
+
+    public function loginByEmail() {
+
     }
 }

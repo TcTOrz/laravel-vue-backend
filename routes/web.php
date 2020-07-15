@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-10 10:05:54
- * @LastEditTime: 2020-07-10 10:05:55
+ * @LastEditTime: 2020-07-16 03:13:57
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/routes/web.php
@@ -50,3 +50,13 @@ Route::get('/verify', 'Auth\MyLoginController@verify');
 Route::get('api/val1', 'Index\TestController@getVal1');
 
 Route::get('api/val2', 'Index\TestController@getVal2');
+
+
+// Route::get('new/auth', function(){
+//     $auth = \Request::get('auth');
+//     // var_dump($auth);
+//     return redirect(' http://10.10.10.61:8001/login?auth='.$auth,302);
+// });
+
+Route::get('auth/{service}', 'Auth\MyLoginController@redirectToProvider');
+Route::get('auth/{service}/callback', 'Auth\MyLoginController@handleProviderCallback');
