@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-10 10:05:54
- * @LastEditTime: 2020-07-16 03:13:57
+ * @LastEditTime: 2020-07-17 10:22:59
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/routes/web.php
@@ -60,3 +60,9 @@ Route::get('api/val2', 'Index\TestController@getVal2');
 
 Route::get('auth/{service}', 'Auth\MyLoginController@redirectToProvider');
 Route::get('auth/{service}/callback', 'Auth\MyLoginController@handleProviderCallback');
+
+//授权登录 需要绑定账号
+Route::get('new/auth', function(){
+    $auth = \Request::get('auth');
+    return redirect(env('TCTORZ_INDEX_DOMAIN').':'.env('TCTORZ_INDEX_PORT').env('TCTORZ_AUTH_REDIRECT').'?auth='.$auth, 302);
+})->name('new.auth');

@@ -3,7 +3,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-07 11:29:36
- * @LastEditTime: 2020-07-16 05:53:52
+ * @LastEditTime: 2020-07-17 09:34:03
  * @LastEditors: Li Jian
  * @Description: login
  * @FilePath: /water-environment-end/app/Http/Controllers/Auth/MyLoginController.php
@@ -175,7 +175,12 @@ class MyLoginController extends Controller
     }
 
     public function loginByGithub($user) {
+        $isGithub = $this->userService->checkIsGithub($user->id);
+        if(empty($isGithub)) {
+            return $this->userService->storeGithub($user);
+        } else {
 
+        }
     }
 
     public function loginByEmail() {
