@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-07 15:17:30
- * @LastEditTime: 2020-07-07 16:19:10
+ * @LastEditTime: 2020-07-20 10:28:22
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/app/Models/User.php
@@ -14,6 +14,8 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+
+use App\Models\GithubUser;
 
 // use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -60,5 +62,9 @@ class User extends Authenticatable
         //     var_dump($s);
         // }
         // return $this->hasMany('App\Models\Phone', 'another_id', 'id');
+    }
+
+    public function github() {
+        return $this->hasOne(GithubUser::class, 'id', 'github_id');
     }
 }

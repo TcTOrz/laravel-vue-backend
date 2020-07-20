@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-09 10:11:35
- * @LastEditTime: 2020-07-17 10:13:49
+ * @LastEditTime: 2020-07-20 10:23:50
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/app/Services/Auth/UserService.php
@@ -177,4 +177,9 @@ class UserService extends BaseService {
 
         return redirect()->route('new.auth', ['auth'=> $auth]);
     }
+
+    public function findUserByGithubId($githubId) {
+        return $this->userRepository->findUserByGithubId($githubId);
+    }
+
 }

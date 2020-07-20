@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-09 11:16:32
- * @LastEditTime: 2020-07-10 14:18:33
+ * @LastEditTime: 2020-07-20 10:51:39
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/app/Repositories/Eloquent/UserRepository.php
@@ -65,6 +65,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
      */
     public function update($data, $id) {
         return User::where('id', $id)->update($data);
+    }
+
+    public function findUserByGithubId($githubId)
+    {
+        return User::where('github_id', $githubId)->first();
     }
 }
 

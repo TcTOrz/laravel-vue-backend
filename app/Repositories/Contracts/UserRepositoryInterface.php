@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-09 11:15:49
- * @LastEditTime: 2020-07-10 14:13:09
+ * @LastEditTime: 2020-07-20 10:22:50
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/app/Repositories/Contracts/UserRepositoryInterface.php
@@ -46,4 +46,11 @@ interface UserRepositoryInterface extends BaseRepositoryInterface {
      * @return mixed
      */
     public function update($data, $id);
+
+    /**
+     * 通过githubId获取user
+     * @param $githubId
+     * @return mixed
+     */
+    public function findUserByGithubId($githubId);
 }

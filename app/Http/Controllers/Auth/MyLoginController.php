@@ -3,7 +3,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-07 11:29:36
- * @LastEditTime: 2020-07-17 09:34:03
+ * @LastEditTime: 2020-07-20 14:08:23
  * @LastEditors: Li Jian
  * @Description: login
  * @FilePath: /water-environment-end/app/Http/Controllers/Auth/MyLoginController.php
@@ -179,7 +179,20 @@ class MyLoginController extends Controller
         if(empty($isGithub)) {
             return $this->userService->storeGithub($user);
         } else {
+            $userId = \DB::table('github_user')->where('github_id', $user->id)->first()->id;
+            $result = $this->userService->findUserByGithubId($userId);
 
+            if( empty($result) ) {
+                $now = time();
+                $oauth = config('tctorz.oauth.auth.github');
+                $param = [$userId, $now, $oauth];
+                $auth = Hashids::connection('user')->encode($param);
+                return redirect()->route('new.auth', ['auth'=> $auth]);
+            }
+            $now = time();
+            $auth = [$userId, $now];
+            $token = Hashids::connection('main')->encode($auth);
+            return redirect()->route('new.login', ['token'=> $token, 'hid'=> $result->hid]);
         }
     }
 

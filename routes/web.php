@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-10 10:05:54
- * @LastEditTime: 2020-07-17 10:22:59
+ * @LastEditTime: 2020-07-20 13:39:32
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/routes/web.php
@@ -66,3 +66,10 @@ Route::get('new/auth', function(){
     $auth = \Request::get('auth');
     return redirect(env('TCTORZ_INDEX_DOMAIN').':'.env('TCTORZ_INDEX_PORT').env('TCTORZ_AUTH_REDIRECT').'?auth='.$auth, 302);
 })->name('new.auth');
+
+//直接登录 返回前端首页
+Route::get('new/login', function(){
+    $token = \Request::get('token');
+    $hid = \Request::get('hid');
+    return redirect(env('TCTORZ_INDEX_DOMAIN').':'.env('TCTORZ_INDEX_PORT').env('TCTORZ_LOGIN_REDIRECT').'?secret='.$token.'&secretId='.$hid,302);
+})->name('new.login');
