@@ -2,7 +2,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-09 10:11:35
- * @LastEditTime: 2020-07-20 10:23:50
+ * @LastEditTime: 2020-07-21 10:13:26
  * @LastEditors: Li Jian
  * @Description:
  * @FilePath: /water-environment-end/app/Services/Auth/UserService.php
@@ -182,4 +182,12 @@ class UserService extends BaseService {
         return $this->userRepository->findUserByGithubId($githubId);
     }
 
+    /**
+     * @param $oauthId
+     * @param $type
+     * @return mixed
+     */
+    public function checkExistsOauth($oauthId,$type) {
+        return $this->userRepository->findWhere([$type=> $oauthId])->first();
+    }
 }

@@ -3,7 +3,7 @@
 /*
  * @Author: Li Jian
  * @Date: 2020-07-07 11:29:36
- * @LastEditTime: 2020-07-20 14:08:23
+ * @LastEditTime: 2020-07-21 10:27:50
  * @LastEditors: Li Jian
  * @Description: login
  * @FilePath: /water-environment-end/app/Http/Controllers/Auth/MyLoginController.php
@@ -92,6 +92,28 @@ class MyLoginController extends Controller
         // dd($requestPwd, $user->password);
         $this->userService->checkPwd($requestPwd, $user->password);
 
+        $authorization = $request->get('auth');
+        $this->log('Controller.request to '.__METHOD__, ['authorization'=> $authorization]);
+        if(!empty($authorization)) {
+            $oauth = Hashids::connection('user')->decode($authorization);
+            $this->log('controller.request to '.__METHOD__,['oauth' => $oauth]);
+            if (empty($oauth)) {
+                $this->setCode(config('validation.login')['oauth.failed']);
+                return $this->response();
+            }
+
+            $verifyTime = config('tctorz.verify.valid_time');
+            $now = time();
+            if ( $now - $oauth[1] > $verifyTime ) {
+                $this->setCode(config('validation.login')['oauth.failed']);
+                return $this->response();
+            }
+
+            $login = config('tctorz.oauth.login.'.$oauth[2]);
+            // var_dump($oauth); 9 1595295192 1
+            // $result = $this->userService->checkExistsOauth($oauth[0],$login);
+            \DB::table('users')->where('email', $request->get('email'))->update(['github_id'=> $oauth[0]]);
+        }
 
         $email = $request->get('email');
         // $user = $this->userService->checkUserByEmail($email);
